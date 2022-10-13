@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Tarefa 5 - Javascript</title>
+  </head>
+  <body class="d-flex vw-100 vh-100">
+    <div class="col-md-4 m-md-3">
+        <div class="row m-md-5" id="ex2"></div>
+        <div class="row m-md-5">
+            <button type="button" class="btn btn-primary" onclick="mostrarTabuada(5)">Ver tabuada do 5</button>
+        </div>
+        <div class="row m-md-5">
+            <div class="col-md-3">
+                <div class="row mb-3">
+                  <label class="form-label mt-5">Digite o valor para mostrar a tabuada</label>
+                  <input type="number" class="form-control mb-2" id="numTab">
+                  <button type="button" class="btn btn-primary" onclick="mostrarTabuada(document.getElementById('numTab').value)">Ver tabuada do valor</button>
+                  <button type="button" class="btn btn-danger mt-2" onclick="limpar()">Limpar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row m-md-5" id="ex3"></div>
+    </div>
+    <div class="col-md-3 m-md-3">
+        <div class="row m-md-3">
+            <label class="form-label">Primeiro valor</label>
+            <input type="number" class="form-control" id="valor1">
+            <label class="form-label mt-md-3">Segundo valor</label>
+            <input type="number" class="form-control" id="valor2">
+            <label class="form-label mt-md-3">Operação</label>
+            <select class="form-select" id="operacao">
+            <option disabled hidden selected>Selecione a operação</option>
+            <option value="soma">+</option>
+            <option value="subtr">-</option>
+            <option value="mult">*</option>
+            <option value="div">/</option>
+            </select>
+            <label class="form-label mt-md-3">Resultado</label>
+            <input type="number" class="form-control" id="resultado" readonly>
+            <button type="button" class="btn btn-success mt-md-4" id="btncalc" onclick="calcularResultado()">Calcular Resultado</button>
+            <button type="button" class="btn btn-danger mt-md-4" id="btnlimpacalc" onclick="limparValoresCalc()">Limpar Valores</button>
+            <div class="row m-md-5" id="ex6"></div>
+        </div>
+    </div>
+    <div class="col-md-3 m-md-3">
+        <div class="row m-md-3">
+            <label class="form-label">Custo de fábrica</label>
+            <input type="number" class="form-control" id="custoFabrica">
+            <label class="form-label mt-md-3">% Distribuidor</label>
+            <input type="number" class="form-control" id="percDistribuidor">
+            <label class="form-label mt-md-3">% Impostos</label>
+            <input type="number" class="form-control" id="percImpostos">
+            <label class="form-label mt-md-3">Valor final</label>
+            <input type="number" class="form-control" id="valorfinal" readonly>
+            <button type="button" class="btn btn-success mt-md-4" id="btncalcular" onclick="calcularValorFinal()">Calcular valor final</button>
+            <button type="button" class="btn btn-danger mt-md-4" id="btnlimpar" onclick="limparValores()">Limpar Valores</button>
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Exercício 1
+        const n10 = 10;
+        const n100 = 100;
+
+        alert(`Soma: ${Number(n10) + Number(n100)}\nSubtração: ${Number(n10) - Number(n100)}\nDivisão: ${Number(n10) / Number(n100)}\nMultiplicação: ${Number(n10) * Number(n100)}`)
+
+        // Exercício 2
+        let p = document.createElement('p');
+        let numbers = document.getElementById('ex2');
+        for(let i = 10; i <= 100; i++) {
+            p.innerHTML += i + (' ');
+        }
+        numbers.appendChild(p);
+
+        // Exercício 3 / 4
+        const mostrarTabuada = (valor) => {
+            if(valor == '') {
+                valor = 0;
+            }
+            const tabuada = document.getElementById('ex3');
+            tabuada.innerHTML = '';
+            for(let i = 0; i <= 10; i++) {
+                let p = document.createElement('p');
+                p.innerHTML = `${valor} x ${i} = ${Number(valor * i)}\n`
+                tabuada.appendChild(p)
+            }
+        }
+        
+        const limpar = () => {
+            const tabuada = document.getElementById('ex3');
+            const numTab = document.getElementById('numTab');
+            tabuada.innerHTML = '';
+            numTab.value = '';
+        }
+
+        // Exercício 5
+        const calcularResultado = () => {
+            const valor1 = document.getElementById('valor1').value;
+            const valor2 = document.getElementById('valor2').value;
+            const operacao = document.getElementById('operacao');
+            let resultado = document.getElementById('resultado');
+            switch(operacao.selectedIndex) {
+                case 1: 
+                    resultado.value = Number(valor1) + Number(valor2);
+                    break;
+                case 2:
+                    resultado.value = Number(valor1) - Number(valor2);
+                    break;
+                case 3:
+                    resultado.value = Number(valor1) * Number(valor2);
+                    break;
+                case 4:
+                    resultado.value = Number(valor1) / Number(valor2);
+                    break;
+                default:
+                    alert("Não foi possível realizar o cálculo.");
+            }
+        }
+
+        const limparValoresCalc = () => {
+            document.getElementById('valor1').value = '';
+            document.getElementById('valor2').value = '';
+            document.getElementById('operacao').selectedIndex = 0;
+            document.getElementById('resultado').value = '';
+        }
+
+        // Exercício 6
+        const numPares = document.getElementById('ex6');
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML += 'Números pares do array: ';
+        const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        arr.forEach((num) => {
+            if(num % 2 == 0) {
+                paragraph.innerHTML += num + ' ';
+            }
+        })
+        numPares.appendChild(paragraph);
+
+
+        // Exercício 7
+        const calcularValorFinal = () => {
+            try {
+                const custoFabrica = document.getElementById('custoFabrica').value;
+                const percDistribuidor = document.getElementById('percDistribuidor').value;
+                const percImpostos = document.getElementById('percImpostos').value;
+                const valorfinal = document.getElementById('valorfinal');
+                valorfinal.value = parseFloat(parseFloat(custoFabrica) + (parseFloat(custoFabrica) * parseFloat(percDistribuidor)) + (parseFloat(custoFabrica) * parseFloat(percImpostos))).toFixed(3);
+            } catch(error) {
+                alert("Erro ao calcular valor final");
+            }
+
+        }
+
+        const limparValores = () => {
+            document.getElementById('custoFabrica').value = '';
+            document.getElementById('percDistribuidor').value = '';
+            document.getElementById('percImpostos').value = '';
+            document.getElementById('valorfinal').value = '';
+
+        }
+
+    </script>
+
+  </body>
+</html>
